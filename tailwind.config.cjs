@@ -10,6 +10,8 @@ export default {
       },
       backgroundImage: {
           circle: 'url("/images/circle.svg")',
+          arrowRightUp: 'url("/images/arrow-right-up.svg")',
+          arrowLeftUp: 'url("/images/arrow-left-up.svg")',
       },
       borderWidth: {
         1: '1px',
@@ -38,6 +40,7 @@ export default {
         silver: '#c0c0c0',
         gallery: '#efeaf2',
         fog: '#decaec',
+        prim: '#ede6ef'
       },
       zIndex: {
         navBarToggle: 91,

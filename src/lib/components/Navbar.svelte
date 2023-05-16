@@ -14,8 +14,8 @@
         </style>
     {/if}
 </svelte:head>
-<button class="fixed right-6 top-6 z-navBarToggle md:hidden"
-        on:click={() => {isNavShowing = !isNavShowing}}
+<button   class="fixed right-6 top-6 z-navBarToggle md:hidden"
+          on:click={() => {isNavShowing = !isNavShowing}}
         class:text-goldenFizz={isNavShowing}
         class:text-daisyBusy={!isNavShowing}>
     {#if isNavShowing}
@@ -24,11 +24,11 @@
         <Hamburger width={32} height={32}/>
     {/if}
 </button>
-<header class="fixed z-navBar transition-transform md:relative -translate-x-full md:translate-x-0 md:col-span-3 w-full h-screen md:h-full bg-daisyBush text-center"
-        class:translate-x-0={isNavShowing}>
+<header   class="fixed z-navBar h-screen w-full -translate-x-full bg-daisyBush text-center transition-transform md:relative md:col-span-3 md:h-full md:translate-x-0"
+          class:translate-x-0={isNavShowing}>
     <div class="mt-10 mb-10 md:mb-24">
         <a href="/invoices">
-            <img src="/images/logo.svg" alt="The Dollar Holler" class="mx-auto"/>
+            <img src="/images/logo.svg" alt="The Dollar Holler" class="mx-auto" />
         </a>
     </div>
     <nav>
