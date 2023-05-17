@@ -10,17 +10,22 @@
     import Edit from "$lib/icon/Edit.svelte";
     import Trash from "$lib/icon/Trash.svelte";
     import Send from "$lib/icon/Send.svelte";
+    import Modal from "$lib/components/Modal.svelte";
+    import Button from "$lib/components/Button.svelte";
+    import { deleteInvoice } from "$lib/stores/InvoiceStore";
     export let invoice: Invoice;
     let isAdditionalMenuShowing = false;
     let isOptionsDisabled = false;
+    let isModalShowing = false;
 
-    const handelEdit = () => {
+    const handleEdit = () => {
         console.log('edit')
     }
-    const handelDelete = () => {
-        console.log('delete')
+    const handleDelete = () => {
+        isModalShowing = true;
+        isAdditionalMenuShowing = false;
     }
-    const handelSentInvoice = () => {
+    const handleSentInvoice = () => {
         console.log('sent')
     }
     const getInvoiceLabel = (status: InvoiceStatus, date: string): string => {
@@ -58,13 +63,27 @@
         </button>
         {#if isAdditionalMenuShowing}
             <AdditionalOptions options="{[
-                {label: 'Edit', icon: Edit, onclick: handelEdit, disabled: isOptionsDisabled},
-                {label: 'Delete', icon: Trash, onclick: handelDelete, disabled: false},
-                {label: 'Sent', icon: Send, onclick: handelSentInvoice, disabled: isOptionsDisabled},
+                {label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isOptionsDisabled},
+                {label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false},
+                {label: 'Sent', icon: Send, onClick: handleSentInvoice, disabled: isOptionsDisabled},
             ]}"/>
         {/if}
     </div>
 </div>
+
+<Modal isVisible="{isModalShowing}" on:close={() => isModalShowing = false }>
+    <div class="flex flex-col justify-between items-center gap-6 h-full min-h-[175px]">
+        <div class="text-xl text-center font-bold text-daisyBush">Are you sure you want to delete this invoice to
+            <span class="text-scarlet">{invoice.client.name}</span> for <span class="text-scarlet">${centsToDollar(sumLineItems(invoice.lineItems))}</span>?</div>
+        <div class="flex gap-6">
+            <Button isAnimated={false} label="Cancel" buttonStyle="secondary" onClick={() => {isModalShowing = false}} />
+            <Button isAnimated={false} label="Yes, Delete It" buttonStyle="destructive" onClick={() => {
+                deleteInvoice(invoice)
+                isModalShowing = false
+            }}/>
+        </div>
+    </div>
+</Modal>
 
 <style lang="postcss">
     .invoice-row {

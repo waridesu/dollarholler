@@ -1,31 +1,34 @@
+import type { ClientStatus } from "./enums";
 import { InvoiceStatus } from "./enums";
 
 interface Invoice {
+    client: Client
+    createdAt: string
+    dueDate: string
+    id: string
+    invoiceNumber: string
     invoiceStatus: InvoiceStatus
     issueDate: string
-    invoiceNumber: string
-    client: Client
-    dueDate: string
-    subject?: string
     lineItems?: LineItem[]
     notes?: string
+    subject?: string
     terms?: string
-    createdAt: string
+}
+
+interface LineItem {
+    amount: number
+    description: string
+    id: string
+    quantity: number
 }
 
 interface Client {
     clientStatus: ClientStatus
+    city: string
+    email: string
     id: string
     name: string
-    email: string
-    street: string
-    city: string
     state: string
+    street: string
     zip: string
-}
-
-interface LineItem {
-    description: string
-    quantity: number
-    amount: number
 }

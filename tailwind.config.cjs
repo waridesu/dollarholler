@@ -43,6 +43,8 @@ export default {
         prim: '#ede6ef'
       },
       zIndex: {
+        overlay: 998,
+        modal: 999,
         navBarToggle: 91,
         navBar: 90,
       }
