@@ -19,6 +19,16 @@ export const centsToDollar = (cents: number): string => {
     return addThousandsSeparator(addDecimal)
 }
 /**
+ * Convert dollars to cents 
+ * @param {number} dollars 
+ * @returns {number}
+ * */
+
+export const dollarsToCent = (dollars: number): number => {
+    return dollars * 100
+};
+
+/**
  * Takes a number and returns a string with two decimal places
  * @param {number} myNumber
  * @returns {string}

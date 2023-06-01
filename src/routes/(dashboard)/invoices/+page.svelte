@@ -1,13 +1,17 @@
 <script lang="ts">
-    import {invoices, loadInvoices} from "$lib/stores/InvoiceStore";
-    import {onMount} from "svelte";
+    import { invoices, loadInvoices } from "$lib/stores/InvoiceStore";
+    import { onMount } from "svelte";
     import Search from "../../../lib/components/Search.svelte";
     import CircledAmount from "../../../lib/components/CircledAmount.svelte";
     import InvoiceRow from "./InvoiceRow.svelte";
-    import {sumInvoices, centsToDollar} from "$lib/utils/moneyHelper";
+    import { sumInvoices, centsToDollar } from "$lib/utils/moneyHelper";
     import BlankState from "./BlankState.svelte";
     import InvoiceRowHeader from "./InvoiceRowHeader.svelte";
     import Button from "$lib/components/Button.svelte";
+    import SlidePanel from "$lib/components/SlidePanel.svelte";
+    import InvoceForm from "./InvoceForm.svelte";
+
+    let isInvoiceFormShowing = false;
 
     onMount(() => {
         loadInvoices();
@@ -25,7 +29,7 @@
         <div></div>
     {/if}
     <div>
-    <Button label="+ Invoice" onClick={() => {console.log('click')}}/>
+        <Button label="+ Invoice" onClick={() => { isInvoiceFormShowing =  true}}/>
     </div>
 </div>
 <div>
@@ -46,3 +50,8 @@
         <CircledAmount label="Total" amount={`$${centsToDollar(sumInvoices($invoices))}`}/>
     {/if}
 </div>
+{#if isInvoiceFormShowing}
+    <SlidePanel on:closePanel={() => {isInvoiceFormShowing = false}}>
+        <InvoceForm/>
+    </SlidePanel>
+{/if}
